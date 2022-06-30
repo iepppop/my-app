@@ -3,17 +3,16 @@ import styled from "styled-components";
 
 const Header = () => {
   const [mobile, setMobile] = useState(false);
-  const ref = useRef();
+  const [menuBar, setMenuBar] = useState(false);
 
-  useEffect(()=>{
-    if(mobile === true){
-        ref.current.style.width = "200px";
-        ref.current.style.opacity = "1";
-    }else{
-        ref.current.style.width = "0%";
-        ref.current.style.opacity = "0";
+  useEffect(() => {
+    if (window.innerWidth < 868) {
+      setMobile(true);
+    } else {
+      setMobile(false);
     }
-  })
+  },[])
+
 
   return (
     <Head>
@@ -25,30 +24,26 @@ const Header = () => {
               alt=""
             />
           </LogoWrap>
-          <h1>카이조쿠</h1>
+          <h1>해적왕</h1>
         </Logo>
         <NavLink>
-          <ul ref={ref}>
+          {!mobile && (
+            <ul>
             <li>home</li>
             <li>features</li>
             <li>portfolio</li>
-            <li>resume</li>
-            <li>clients</li>
             <li>blog</li>
             <li>contact</li>
             <li>
               <button>BUY NOW</button>
             </li>
           </ul>
-          {mobile ? (
-            <Toggle onClick={() => setMobile(false)}>
-              <i className="fas fa-times"></i>
-            </Toggle>
-          ) : (
-            <Toggle onClick={() => setMobile(true)}>
-              <i className="fas fa-bars"></i>
-            </Toggle>
           )}
+    
+            <Toggle onClick={() => setMobile(!mobile)}>
+              {!mobile ? <i className="fas fa-bars"></i> : <i className="fas fa-times"></i>}
+            </Toggle>
+      
         </NavLink>
       </Contain>
     </Head>
@@ -64,16 +59,15 @@ const Head = styled.div`
 `;
 
 const Contain = styled.div`
-  padding: 15px 0 0 0;
+  padding:0 20px;
   display: flex;
-  justify-content: space-between;
-  max-width: 95%;
-  margin: auto;
+  width: 100%;
   height: 100%;
+  display:flex;
+  justify-content: space-between;
 `;
 
 const Logo = styled.div`
-  width: 20%;
   display: flex;
   align-items: center;
   height: 100%;
@@ -99,31 +93,25 @@ const LogoWrap = styled.div`
 `;
 
 const NavLink = styled.div`
-  display: flex;
-  max-idth: 80%;
-  align-items:center;
+  height: 100%;
+  display:flex;
+  align-items: center;
 
   ul {
+    display:flex;
+    font-weight:600;
     width:100%;
-    height:100%;
-    display: flex;
-    text-transform: uppercase;
-    transition:0.3s;
     position:relative;
-    z-index:-1;
+    opacity:1;
 
     @media screen and (max-width: 868px) {
-      flex-direction: column;
-      width: 0%;
-      opacity: 0;
+      opacity:0;
     }
   }
 
   li {
-    margin: 0 0 0 30px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: normal;
+    display:inline-block;
+    margin:0 0 0 20px;
 
     button {
       padding: 18px 25px;
@@ -134,6 +122,8 @@ const NavLink = styled.div`
       color: #ff014f;
       background: linear-gradient(145edg, #e2e8ec, #ffffff);
       box-shadow: 4px 4px 8px #cbcbcb;
+      width:130px;
+      font-weight:800;
     }
   }
 
@@ -156,6 +146,6 @@ const Toggle = styled.button`
   z-index:999;
 
   @media screen and (max-width: 868px) {
-    display: block;
+    display:inline-block;
   }
 `;

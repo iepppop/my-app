@@ -5,11 +5,14 @@ import styled from "styled-components";
 
 const App = () => {
   return (
-    <>
+    <Contain>
       <GlobalStyles />
       <Header />
-    </>
+    </Contain>
   );
 };
 
 export default App;
+
+const Contain = styled.div`
+`
