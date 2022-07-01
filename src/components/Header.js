@@ -3,16 +3,6 @@ import styled from "styled-components";
 
 const Header = () => {
   const [mobile, setMobile] = useState(false);
-  const [menuBar, setMenuBar] = useState(false);
-
-  useEffect(() => {
-    if (window.innerWidth < 868) {
-      setMobile(true);
-    } else {
-      setMobile(false);
-    }
-  },[])
-
 
   return (
     <Head>
@@ -27,23 +17,19 @@ const Header = () => {
           <h1>해적왕</h1>
         </Logo>
         <NavLink>
-          {!mobile && (
-            <ul>
-            <li>home</li>
-            <li>features</li>
-            <li>portfolio</li>
-            <li>blog</li>
-            <li>contact</li>
-            <li>
-              <button>BUY NOW</button>
-            </li>
-          </ul>
-          )}
-    
+              <NavUl mobile={mobile}>
+              <li>home</li>
+              <li>features</li>
+              <li>portfolio</li>
+              <li>blog</li>
+              <li>contact</li>
+              <li>
+                <button>FOLLOW</button>
+              </li>
+            </NavUl>
             <Toggle onClick={() => setMobile(!mobile)}>
               {!mobile ? <i className="fas fa-bars"></i> : <i className="fas fa-times"></i>}
             </Toggle>
-      
         </NavLink>
       </Contain>
     </Head>
@@ -75,6 +61,7 @@ const Logo = styled.div`
   h1 {
     font-size: 15px;
     margin: 0 0 0 30px;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
 `;
 
@@ -96,41 +83,46 @@ const NavLink = styled.div`
   height: 100%;
   display:flex;
   align-items: center;
+`;
 
-  ul {
-    display:flex;
-    font-weight:600;
-    width:100%;
-    position:relative;
-    opacity:1;
+const NavUl = styled.ul`
+  font-weight:600;
+  height:100%;
+  display:flex; 
+  transition:0.3s;
+  
+  @media screen and (max-width: 868px) {
+    flex-direction: column;
+    align-items:flex-end;
+    position:fixed;
+    top:100px;
+    right:${(props)=> (props.mobile === true ? '40px' : '-200px')}
 
-    @media screen and (max-width: 868px) {
-      opacity:0;
-    }
-  }
+}
 
   li {
     display:inline-block;
     margin:0 0 0 20px;
+  }
 
-    button {
-      padding: 18px 25px;
-      border-radius: 6px;
-      transition: 0.3s all ease;
-      cursor: pointer;
-      height: fit-content;
-      color: #ff014f;
-      background: linear-gradient(145edg, #e2e8ec, #ffffff);
-      box-shadow: 4px 4px 8px #cbcbcb;
-      width:130px;
-      font-weight:800;
-    }
+  
+  button {
+    padding: 18px 25px;
+    border-radius: 6px;
+    transition: 0.3s all ease;
+    cursor: pointer;
+    height: fit-content;
+    color: #ff014f;
+    background: linear-gradient(145edg, #e2e8ec, #ffffff);
+    box-shadow: 2px 2px 8px #cbcbcb;
+    width:130px;
+    font-weight:800;
   }
 
   li:hover {
     color: #ff014f;
   }
-`;
+`
 
 const Toggle = styled.button`
   padding: 18px 25px;

@@ -13,10 +13,11 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', Pretendard, sans-serif;
     width:100%;
     height:100%;  
     overflow: hidden;
+    color:#2d2d2d;
     }
 
     a{
