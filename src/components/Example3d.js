@@ -1,6 +1,6 @@
 import { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, PresentationControls } from '@react-three/drei';
+import { OrbitControls, useGLTF, PresentationControls, ContactShadows, } from '@react-three/drei';
 import styled from 'styled-components';
 
 
@@ -28,7 +28,7 @@ function Model({ ...props }) {
         group.current.rotation.x = -Math.PI / 1.75 + Math.cos(t / 4) / 8
         group.current.rotation.y = Math.sin(t / 4) / 8
         group.current.rotation.z = (1 + Math.sin(t / 1.5)) / 20
-        group.current.position.y = (1 + Math.sin(t / 1.5)) / 10
+        group.current.position.y = (1 + Math.sin(t / 1.5)) / 5
     })
     return (
         <group ref={group} {...props} dispose={null} scale={0.09}>
@@ -228,18 +228,26 @@ const Example3d = () => {
             <Contain>
                 <Canvas>
                     <Suspense fallback={null}>
-                        <directionalLight intensity={0.2} />
+                        <directionalLight 
+                        intensity={0.2}
+                        
+                        />
                         <ambientLight intensity={0.3} />
                         <spotLight intensity={0.5} angle={2} penumbra={1} position={[10, 15, 10]} castShadow />
                         <PresentationControls
-                            global
-                            config={{ mass: 2, tension: 500 }}
-                            snap={{ mass: 4, tension: 1500 }}
-                            rotation={[0, 0.3, 0]}
+                            global={false}
+                            cursor={true}
+                            config={{ mass: 10, tension: 500, friction: 50}}
+                            snap={{ mass: 10, tension: 500 }}
+                            rotation={[0, 0.2, 0]}
                             polar={[-Math.PI / 3, Math.PI / 3]}
-                            azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
-                            <Model rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.25, 0]} scale={0.003} />
-                        </PresentationControls>
+                            azimuth={[-Math.PI / 1, Math.PI / 20]}
+                            zoom={1}>
+                            <Model rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.25, 0]} scale={0.003}  receiveShadow/>
+                            
+                            </PresentationControls>
+                            {/* <ContactShadows scale={2} blur={3} opacity={0.4} far={100}/> */}
+                      
                     </Suspense>
                 </Canvas>
             </Contain>
@@ -253,5 +261,5 @@ const Contain = styled.div`
     width:100%;
     height:100%;
     margin:0 auto;
-    background:#3c6fde;
+    background:#eee;
 `

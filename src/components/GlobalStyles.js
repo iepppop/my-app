@@ -19,7 +19,6 @@ body,
 
 body {
   font-family: 'Inter var', sans-serif;
-  background: linear-gradient(155deg, #ffffff 20%, #a5a3a3);
   color: #101015;
 }
 
