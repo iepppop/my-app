@@ -7,7 +7,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import Banner from "./components/banner/Banner";
 import Example3d from "./components/Example3d";
 import Shape from "./components/Shape";
-import { Loader } from "@react-three/drei";
+import Loader  from "./components/frame/Loader";
 
 const App = () => {
   return (
