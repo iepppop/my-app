@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { motion } from "framer-motion"
 
 //Variants
-const Container = {
+const container = {
     show: {
-        transition:{
+        transition: {
             staggerChildren: 0.35,
         }
     }
@@ -18,10 +18,10 @@ const item = {
     },
     show: {
         opacity: 1,
-        y:0,
+        y: 0,
         transition: {
-            ease: [.6,.01,-.05, .95],
-            duration: 1.6,         
+            ease: [.6, .01, -.05, .95],
+            duration: 1.6,
         },
     },
     exit: {
@@ -34,31 +34,46 @@ const item = {
     },
 };
 
+const itemMain = {
+    hidden: { opcaity: 0, y: 200 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            ease: [0.6, 0.01, -0.05, 0.95],
+            duration: 1,
+        }
+    }
+}
+
 const Loader = ({ setLoading }) => {
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 4000);
-        return () => clearTimeout(timer);
-    })
     return (
-        <Contain>
-            <ImageBlock id="image-1" />
-            <ImageBlock id="image-2" />
-            <ImageBlock id="image-3" />
+        <Contain
+            variants={container}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            onAnimationComplete={() => setLoading(false)}
+        >
+            <TransitionImage variants>
+
+            </TransitionImage>
+            <ImageBlock variants={item} id="image-1" />
+            <ImageBlock variants={item} id="image-2" />
+            <ImageBlock variants={item} id="image-3" />
         </Contain>
     )
 }
 
-export const ImageBlock = ({ id }) => {
+export const ImageBlock = ({ id, variants }) => {
     return (
         <BlockBox
-            animate={{ 
+            animate={{
                 scale: .5,
                 transition: {
                     duration: 1,
                 }
-             }}
+            }}
         >
             <Image src={process.env.PUBLIC_URL + `/images/${id}.jpg`} />
         </BlockBox>
@@ -66,7 +81,7 @@ export const ImageBlock = ({ id }) => {
 }
 export default Loader;
 
-const Contain = styled.div`
+const Contain = styled(motion.div)`
     color:#000;
 `
 
@@ -78,4 +93,8 @@ const BlockBox = styled(motion.div)`
     img{
         width:100%;
     }
+`
+
+const TransitionImage = styled(motion.div)`
+
 `
