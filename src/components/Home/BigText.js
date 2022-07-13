@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useAnimation } from '../hooks/useAnimation';
-import { useTransition } from 'react';
 
 
 const BigTextStyles = styled.div`
@@ -34,29 +33,32 @@ const Container = styled(motion.div)`
         height:8vw;
         line-height:8vw;
     }
-`    
+`
+
+
 
 const BigText = () => {
-    const { transition } = useTransition();
-  return (
-    <BigTextStyles>
-        <Container>
-        <h1 
-        initial={{opacity:0}}
-        animate={{opacity: 1}}
-        transition={{duration: 2}}
-         exit>FullStack</h1>
-        </Container>
-        <Container>
-        <h1>develper</h1>
-        </Container>
-        <Container>
-        <h1>based in</h1>
-        </Container>
-        <Container>
-        <h1>Nicaragua</h1>
-        </Container>
-    </BigTextStyles>
-  )
+    const { transition, textReveal  } = useAnimation();
+    return (
+        <BigTextStyles>
+            <Container>
+                <motion.h1
+                    variants={textReveal}
+                    initial="initial"
+                    animate="animate"
+                    transition={transition}
+                >FullStack</motion.h1>
+            </Container>
+            <Container>
+                <h1>develper</h1>
+            </Container>
+            <Container>
+                <h1>based in</h1>
+            </Container>
+            <Container>
+                <h1>Nicaragua</h1>
+            </Container>
+        </BigTextStyles>
+    )
 }
 export default BigText;
