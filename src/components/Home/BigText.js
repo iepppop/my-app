@@ -5,6 +5,7 @@ import { useAnimation } from '../hooks/useAnimation';
 
 const BigTextStyles = styled.div`
     height:100vh;
+    position:absolute;
     display:flex;
     flex-wrap: wrap;
     margin: 5vh;
@@ -14,6 +15,7 @@ const Container = styled(motion.div)`
     text-transform:uppercase;
     width:100%;
     padding:1vw;
+    overflow:hidden;
 
     :nth-child(1){
         margin-left: 5vw;
@@ -50,13 +52,28 @@ const BigText = () => {
                 >FullStack</motion.h1>
             </Container>
             <Container>
-                <h1>develper</h1>
+            <motion.h1
+                    variants={textReveal}
+                    initial="initial"
+                    animate="animate"
+                    transition={{...transition, delay:1.4}}
+                >FullStack</motion.h1>
             </Container>
             <Container>
-                <h1>based in</h1>
+            <motion.h1
+                    variants={textReveal}
+                    initial="initial"
+                    animate="animate"
+                    transition={{...transition, delay:1.6}}
+                >peaches</motion.h1>
             </Container>
             <Container>
-                <h1>Nicaragua</h1>
+            <motion.h1
+                    variants={textReveal}
+                    initial="initial"
+                    animate="animate"
+                    transition={{...transition, delay:1.6}}
+                >justin biber</motion.h1>
             </Container>
         </BigTextStyles>
     )
